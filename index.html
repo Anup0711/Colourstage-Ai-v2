@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ColorStage AI 🔮 — Advanced Multi-Style Generation</title>
+  <meta name="description" content="ColorStage AI - Advanced AI image generator with 12+ artistic styles, bulk generation up to 10 images, watermark-free, 4K-8K quality. Free forever.">
+  <meta name="keywords" content="AI image generator, text to image, bulk generation, ghibli style, cyberpunk art, pixel art, anime generator, impressionist art">
+  <meta name="author" content="ColorStage AI">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://colorstage-ai.com">
+  <meta property="og:title" content="ColorStage AI — Advanced Multi-Style Image Generation">
+  <meta property="og:description" content="Generate up to 10 images at once in 12+ artistic styles. Free, watermark-free AI art generator.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://colorstage-ai.com/assets/og-image.png">
+  <meta property="og:site_name" content="ColorStage AI">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ColorStage AI — Advanced Multi-Style Image Generation">
+  <meta name="twitter:description" content="Bulk generate AI art in Ghibli, Cyberpunk, Pixel Art, Anime styles and more. Free forever.">
+  <meta name="twitter:image" content="https://colorstage-ai.com/assets/twitter-card.png">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="theme-color" content="#667eea">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://image.pollinations.ai">
+  <style>
+    :root{
+      --bg:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      --bg-alt:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);
+      --glass:rgba(255,255,255,.10);
+      --glass-b:rgba(255,255,255,.20);
+      --glass-strong:rgba(255,255,255,.25);
+      --txt:#fff;
+      --muted:rgba(255,255,255,.75);
+      --card-shadow:0 12px 40px rgba(0,0,0,.18);
+      --card-shadow-hover:0 20px 60px rgba(0,0,0,.25);
+      --radius:18px;
+      --brand:#ff6b6b;
+      --accent:#4ecdc4;
+      --accent-alt:#45b7d1;
+      --ok:#4CAF50;
+      --warn:#FFA000;
+      --danger:#E53935;
+      --purple:#9b59b6;
+      --orange:#ff8c00;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+         background:var(--bg);color:var(--txt);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1400px;margin:0 auto;padding:20px}
+    header.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .brand{
+      font-size:36px;font-weight:900;letter-spacing:.5px;
+      background:linear-gradient(45deg,#ff6b6b,#4ecdc4,#45b7d1,#96ceb4,#ffd700);
+      background-size:300% 300%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:gradient 6s ease infinite;
+    }
+    @keyframes gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .tagline{margin:8px 0 20px;font-weight:600;font-size:18px;opacity:0.9}
+    .hamburger{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--glass);border:1px solid var(--glass-b);box-shadow:var(--card-shadow);transition:all 0.3s ease}
+    .hamburger:hover{background:var(--glass-strong);transform:scale(1.05)}
+    .hamburger span,.hamburger span:before,.hamburger span:after{content:"";display:block;width:20px;height:2px;background:#fff;border-radius:2px;position:relative;transition:all 0.3s ease}
+    .hamburger span:before{position:absolute;top:-7px}
+    .hamburger span:after{position:absolute;top:7px}
+    .drawer{position:fixed;top:0;right:-350px;width:350px;height:100%;background:rgba(15,15,25,.95);backdrop-filter:blur(20px);border-left:1px solid var(--glass-b);box-shadow:-15px 0 50px rgba(0,0,0,.4);transition:right .3s cubic-bezier(0.4, 0, 0.2, 1);z-index:50;display:flex;flex-direction:column}
+    .drawer.open{right:0}
+    .drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--glass-b)}
+    .drawer-title{font-weight:700;font-size:18px}
+    .drawer-close{width:40px;height:40px;border-radius:12px;background:var(--glass);display:grid;place-items:center;cursor:pointer;transition:all 0.3s ease}
+    .drawer-close:hover{background:var(--glass-strong);transform:rotate(90deg)}
+    .navlist{list-style:none;margin:0;padding:10px;overflow:auto;flex:1}
+    .navlist li{padding:14px 16px;border-radius:14px;margin:6px;cursor:pointer;display:flex;align-items:center;gap:12px;font-weight:500;transition:all 0.3s ease}
+    .navlist li:hover,.navlist li.active{background:rgba(255,255,255,.15);transform:translateX(8px)}
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}
+    @media(max-width:1100px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--glass);border:1px solid var(--glass-b);border-radius:var(--radius);box-shadow:var(--card-shadow);transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);backdrop-filter:blur(10px)}
+    .card:hover{transform:translateY(-5px);box-shadow:var(--card-shadow-hover)}
+    .card.pad{padding:24px}
+    .section-title{font-weight:800;margin:0 0 16px 0;font-size:24px;background:linear-gradient(45deg,#fff,#e0e0e0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    textarea,input,select,button{font-family:inherit;transition:all 0.3s ease}
+    textarea.input, input.input, select.input{
+      width:100%;padding:14px 16px;border-radius:16px;border:2px solid var(--glass-b);
+      background:rgba(255,255,255,.98);color:#222;font-weight:500;
+      box-shadow:inset 0 2px 6px rgba(0,0,0,.1)
+    }
+    textarea.input:focus, input.input:focus, select.input:focus{
+      outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(78,205,196,.2), inset 0 2px 6px rgba(0,0,0,.1)
+    }
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+    .row-triple{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+    @media(max-width:768px){.row,.row-triple{grid-template-columns:1fr}}
+    .btn{padding:14px 20px;border:none;border-radius:16px;color:#fff;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:var(--card-shadow);transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);font-size:14px;position:relative;overflow:hidden}
+    .btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transition:left 0.6s;z-index:1}
+    .btn:hover::before{left:100%}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.3)}
+    .btn:active{transform:translateY(0)}
+    .btn.primary{background:linear-gradient(45deg,#ff6b6b,#ff8e53)}
+    .btn.secondary{background:linear-gradient(45deg,#4ecdc4,#44a08d)}
+    .btn.accent{background:linear-gradient(45deg,#9b59b6,#8e44ad)}
+    .btn.warn{background:linear-gradient(45deg,#FFA000,#FF7043)}
+    .btn.success{background:linear-gradient(45deg,#4CAF50,#45a049)}
+    .btn.ghost{background:transparent;border:2px solid var(--glass-b)}
+    .btn.danger{background:linear-gradient(45deg,#E53935,#D32F2F)}
+    .btn:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+    .btn:disabled:hover{transform:none;box-shadow:var(--card-shadow)}
+    .bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .muted{color:var(--muted)}
+    .result-wrap{display:flex;flex-direction:column;align-items:center;gap:16px}
+    .image-box{position:relative;border-radius:20px;overflow:hidden;border:2px solid var(--glass-b);transition:all 0.3s ease}
+    .image-box:hover{transform:scale(1.02);border-color:var(--accent)}
+    .image-box img{display:block;max-width:100%;height:auto}
+    .chip{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.8);padding:8px 12px;border-radius:20px;font-size:12px;font-weight:600;backdrop-filter:blur(10px)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+    .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+    .grid-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+    .bulk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:20px}
+    .tile{position:relative;border-radius:16px;overflow:hidden;border:2px solid var(--glass-b);background:rgba(0,0,0,.3);transition:all 0.3s ease;group:hover}
+    .tile:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .tile img{width:100%;height:180px;object-fit:cover;display:block}
+    .tile .tile-actions{position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;gap:8px;opacity:0;transition:all 0.3s ease}
+    .tile:hover .tile-actions{opacity:1}
+    .tile .btn-mini{padding:6px 10px;border-radius:12px;font-size:11px;border:none;cursor:pointer;font-weight:600}
+    .mini{background:rgba(0,0,0,.8);color:#fff;backdrop-filter:blur(10px)}
+    .fav.active{background:linear-gradient(45deg,#ff6b6b,#ff8e53)}
+    .editor-canvas{max-width:100%;border:2px dashed var(--glass-b);border-radius:16px;background:#111;transition:all 0.3s ease}
+    .editor-canvas:hover{border-color:var(--accent)}
+    .ad{background:var(--glass);border:1px solid var(--glass-b);border-radius:20px;padding:20px;text-align:center;backdrop-filter:blur(10px)}
+    .pages{margin-top:20px}
+    .page{display:none;animation:fadeIn 0.5s ease}
+    .page.active{display:block}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.9);color:#fff;padding:12px 18px;border-radius:12px;z-index:100;display:none;font-weight:600;backdrop-filter:blur(10px)}
+    .toast.show{display:block;animation:toastIn 0.3s ease}
+    @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+    .bgfx{position:fixed;inset:0;pointer-events:none;z-index:-1}
+    .circle{position:absolute;border-radius:50%;filter:blur(80px);opacity:.4;animation:float 20s ease-in-out infinite}
+    .c1{width:320px;height:320px;background:var(--brand);top:10%;left:5%;animation-delay:0s}
+    .c2{width:280px;height:280px;background:var(--accent);bottom:10%;right:10%;animation-delay:-10s}
+    .c3{width:240px;height:240px;background:var(--purple);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-5s}
+    @keyframes float{0%,100%{transform:translate(0,0) rotate(0deg)}33%{transform:translate(30px,-30px) rotate(120deg)}66%{transform:translate(-20px,20px) rotate(240deg)}}
+    
+    /* Style Selection Enhancement */
+    .style-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:16px 0}
+    .style-card{padding:12px;border-radius:12px;background:var(--glass);border:2px solid var(--glass-b);cursor:pointer;text-align:center;transition:all 0.3s ease;font-size:13px;font-weight:500}
+    .style-card:hover{background:var(--glass-strong);transform:translateY(-3px)}
+    .style-card.active{border-color:var(--accent);background:rgba(78,205,196,.2)}
+    .style-card .emoji{font-size:20px;display:block;margin-bottom:6px}
+    
+    /* Bulk Generation */
+    .bulk-counter{display:flex;align-items:center;gap:12px;margin:16px 0;padding:16px;background:var(--glass);border-radius:16px;border:1px solid var(--glass-b)}
+    .counter-btn{width:36px;height:36px;border-radius:8px;border:none;background:var(--accent);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:600;transition:all 0.3s ease}
+    .counter-btn:hover{background:var(--accent-alt);transform:scale(1.1)}
+    .counter-display{font-size:18px;font-weight:700;min-width:60px;text-align:center;background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px}
+    
+    /* Progress Bar */
+    .progress-container{margin:16px 0;background:rgba(255,255,255,.1);border-radius:20px;height:8px;overflow:hidden}
+    .progress-bar{height:100%;background:linear-gradient(45deg,var(--accent),var(--accent-alt));border-radius:20px;width:0%;transition:width 0.5s ease;position:relative}
+    .progress-bar::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg,transparent,rgba(255,255,255,.3),transparent);animation:shimmer 2s infinite}
+    @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+    
+    /* Enhanced Gallery */
+    .gallery-stats{display:flex;gap:20px;margin-bottom:20px;flex-wrap:wrap}
+    .stat-card{background:var(--glass);border:1px solid var(--glass-b);border-radius:12px;padding:16px;text-align:center;flex:1;min-width:120px}
+    .stat-number{font-size:24px;font-weight:800;color:var(--accent)}
+    .stat-label{font-size:12px;opacity:0.8;margin-top:4px}
+    
+    /* Modal Styles */
+    .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
+    .modal-overlay.show{display:flex;animation:fadeIn 0.3s ease}
+    .modal{background:var(--glass);border:2px solid var(--glass-b);border-radius:24px;padding:32px;max-width:500px;width:90%;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+    .modal h3{margin:0 0 16px 0;font-size:22px;font-weight:700}
+    
+    /* Responsive */
+    @media(max-width:768px){
+      .wrap{padding:16px}
+      .brand{font-size:28px}
+      .tagline{font-size:16px}
+      .style-grid{grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px}
+      .bulk-counter{flex-direction:column;gap:16px}
+      .gallery-stats{justify-content:center}
+    }
+  </style>
+</head>
+<body>
+  <div class="bgfx">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+  </div>
+  
+  <div class="wrap">
+    <header class="topbar">
+      <div>
+        <div class="brand">ColorStage AI</div>
+        <div class="tagline">Advanced Multi-Style Bulk Image Generation • Free Forever</div>
+      </div>
+      <div class="hamburger" id="openDrawer" title="Open menu"><span></span></div>
+    </header>
+
+    <aside class="drawer" id="drawer">
+      <div class="drawer-header">
+        <div class="drawer-title">Navigation</div>
+        <div class="drawer-close" id="closeDrawer">✕</div>
+      </div>
+      <ul class="navlist" id="navList">
+        <li data-route="home" class="active">🏠 Home Dashboard</li>
+        <li data-route="gen">🎨 Advanced Generation</li>
+        <li data-route="bulk">🚀 Bulk Generator</li>
+        <li data-route="t2i">📝 Text → Image</li>
+        <li data-route="i2i">🎭 Image → Image</li>
+        <li data-route="i2t">🔎 Image → Text</li>
+        <li data-route="gallery">🖼️ Gallery & History</li>
+        <li data-route="prompts">📚 Prompt Library</li>
+        <li data-route="editor">🛠️ Image Editor</li>
+        <li data-route="styles">🎯 Style Guide</li>
+        <li data-route="tutorial">🎓 Tutorial</li>
+        <li data-route="profile">👤 Profile</li>
+        <li data-route="premium">💎 Premium</li>
+        <li data-route="settings">⚙️ Settings</li>
+        <li data-route="help">🆘 Help</li>
+        <li data-route="about">ℹ️ About</li>
+      </ul>
+      <div style="padding:16px;">
+        <div class="ad">
+          <div id="sidebar-ad">💰 Ad Space Available</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="pages">
+      <!-- Home Page -->
+      <section id="page-home" class="page active">
+        <div class="grid">
+          <div class="card pad">
+            <h2 class="section-title">Welcome to ColorStage AI</h2>
+            <p style="font-size:16px;line-height:1.7;margin-bottom:20px">Generate stunning AI art in <strong>12+ artistic styles</strong> with <strong>bulk generation up to 10 images</strong> at once. Completely free, watermark-free, and high-quality.</p>
+            
+            <div class="gallery-stats">
+              <div class="stat-card">
+                <div class="stat-number" id="homeStatImages">0</div>
+                <div class="stat-label">Generated</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="homeStatStyles">12+</div>
+                <div class="stat-label">Art Styles</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="homeStatFaves">0</div>
+                <div class="stat-label">Favorites</div>
+              </div>
+            </div>
+            
+            <div class="bar" style="margin-top:20px">
+              <button class="btn primary" data-go="gen">🎨 Start Creating</button>
+              <button class="btn secondary" data-go="bulk">🚀 Bulk Generate</button>
+              <button class="btn accent" data-go="gallery">🖼️ View Gallery</button>
+              <button class="btn ghost" data-go="styles">🎯 Browse Styles</button>
+            </div>
+            
+            <h3 style="margin:24px 0 16px">🔥 Trending Prompts</h3>
+            <div class="bar">
+              <button class="btn ghost" data-insert-prompt="Majestic dragon soaring through storm clouds, epic fantasy art, cinematic lighting, 8K">🐉 Epic Dragon</button>
+              <button class="btn ghost" data-insert-prompt="Cozy Studio Ghibli village with rolling hills, soft morning light, whimsical charm">🏡 Ghibli Village</button>
+              <button class="btn ghost" data-insert-prompt="Futuristic cyberpunk cityscape, neon reflections on wet streets, rain, moody atmosphere">🌃 Cyber City</button>
+              <button class="btn ghost" data-insert-prompt="Ethereal forest spirit, glowing mushrooms, magical atmosphere, impressionist style">🧚 Forest Magic</button>
+            </div>
+          </div>
+          
+          <div class="card pad">
+            <h2 class="section-title">Recent Creations</h2>
+            <div id="homeRecent" class="grid-gallery"></div>
+            <div id="homeEmpty" style="text-align:center;padding:40px;opacity:0.7">
+              <div style="font-size:48px;margin-bottom:16px">🎨</div>
+              <p>Your generated images will appear here</p>
+              <button class="btn primary" data-go="gen">Create Your First Image</button>
+            </div>
+          </div>
+        </div>
+        
+        <div style="margin-top:24px" class="ad">
+          <div id="home-ad">📢 Advertisement Space</div>
+        </div>
+      </section>
+
+      <!-- Advanced Generation Page -->
+      <section id="page-gen" class="page">
+        <div class="grid">
+          <div class="card pad">
+            <h2 class="section-title">🎨 Advanced Generation</h2>
+            
+            <label style="font-weight:600;margin-bottom:8px;display:block">Prompt</label>
+            <textarea id="genPrompt" class="input" rows="4" placeholder="Describe your vision in detail... Be creative and specific!"></textarea>
+            
+            <label style="font-weight:600;margin:16px 0 8px 0;display:block">Artistic Style</label>
+            <div class="style-grid" id="styleGrid">
+              <div class="style-card active" data-style="photorealistic">
+                <span class="emoji">📸</span>Photorealistic
+              </div>
+              <div class="style-card" data-style="digitalArt">
+                <span class="emoji">🎨</span>Digital Art
+              </div>
+              <div class="style-card" data-style="anime">
+                <span class="emoji">👺</span>Anime
+              </div>
+              <div class="style-card" data-style="ghibli">
+                <span class="emoji">🌸</span>Ghibli
+              </div>
+              <div class="style-card" data-style="cyberpunkNeon">
+                <span class="emoji">🌆</span>Cyberpunk
+              </div>
+              <div class="style-card" data-style="baroqueOil">
+                <span class="emoji">🖼️</span>Baroque
+              </div>
+              <div class="style-card" data-style="pixelArt">
+                <span class="emoji">👾</span>Pixel Art
+              </div>
+              <div class="style-card" data-style="pixarStyle">
+                <span class="emoji">🎭</span>Pixar 3D
+              </div>
+              <div class="style-card" data-style="caricature">
+                <span class="emoji">😄</span>Caricature
+              </div>
+              <div class="style-card" data-style="surrealist">
+                <span class="emoji">🌀</span>Surreal
+              </div>
+              <div class="style-card" data-style="impressionist">
+                <span class="emoji">🎭</span>Impressionist
+              </div>
+              <div class="style-card" data-style="oilPainting">
+                <span class="emoji">🎨</span>Oil Paint
+              </div>
+            </div>
+            
+            <div class="row">
+              <div>
+                <label style="font-weight:600">Aspect Ratio</label>
+                <select id="genAR" class="input">
+                  <option value="1:1">1:1 Square</option>
+                  <option value="16:9">16:9 Landscape</option>
+                  <option value="9:16">9:16 Portrait</option>
+                  <option value="4:3">4:3 Classic</option>
+                  <option value="3:4">3:4 Portrait</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-weight:600">Quality</label>
+                <select id="genQuality" class="input">
+                  <option value="1024">HD (1024px)</option>
+                  <option value="1280">Full HD (1280px)</option>
+                  <option value="1536">2K (1536px)</option>
+                  <option value="2048">4K (2048px)</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div>
+                <label style="font-weight:600">Seed (Optional)</label>
+                <input id="genSeed" class="input" placeholder="Leave empty for random">
+              </div>
+              <div>
+                <label style="font-weight:600">Enhancement</label>
+                <select id="genEnhancement" class="input">
+                  <option value="auto">Auto Enhance</option>
+                  <option value="cinematic">Cinematic</option>
+                  <option value="artistic">Artistic</option>
+                  <option value="photographic">Photographic</option>
+                  <option value="none">None</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="bar" style="margin-top:20px">
+              <button id="btnEnhance" class="btn accent">✨ AI Enhance</button>
+              <button id="btnGenerate" class="btn primary">🚀 Generate</button>
+              <button id="btnRandom" class="btn secondary">🎲 Random</button>
+              <button id="btnClear" class="btn ghost">🗑️ Clear</button>
+            </div>
+            
+            <div class="progress-container" id="genProgress" style="display:none">
+              <div class="progress-bar" id="genProgressBar"></div>
+            </div>
+            
+            <div id="genStatus" class="muted" style="margin-top:12px;font-weight:500"></div>
+          </div>
+          
+          <div class="card pad">
+            <h2 class="section-title">Result</h2>
+            <div class="result-wrap">
+              <div class="image-box" id="genImageBox" style="display:none">
+                <img id="genImage" alt="Generated">
+                <div class="chip" id="genQualityChip">Quality</div>
+              </div>
+              <div class="actions" id="genActions" style="display:none">
+                <button class="btn secondary" id="btnDownload">📥 Download</button>
+                <button class="btn warn" id="btnUpscale">🔍 Upscale 2x</button>
+                <button class="btn accent" id="btnVariation">🎨 Variation</button>
+                <button class="btn ghost" id="btnShare">📤 Share</button>
+                <button class="btn success" id="btnSave">💾 Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bulk Generation Page -->
+      <section id="page-bulk" class="page">
+        <div class="card pad">
+          <h2 class="section-title">🚀 Bulk Generation</h2>
+          <p style="margin-bottom:20px;opacity:0.9">Generate multiple images at once with the same prompt and style. Perfect for exploring variations and concepts.</p>
+          
+          <label style="font-weight:600;margin-bottom:8px;display:block">Bulk Prompt</label>
+          <textarea id="bulkPrompt" class="input" rows="4" placeholder="Enter your prompt for bulk generation..."></textarea>
+          
+          <div class="row">
+            <div>
+              <label style="font-weight:600">Style</label>
+              <select id="bulkStyle" class="input">
+                <option value="photorealistic">📸 Photorealistic</option>
+                <option value="digitalArt">🎨 Digital Art</option>
+                <option value="anime">👺 Anime</option>
+                <option value="ghibli">🌸 Studio Ghibli</option>
+                <option value="cyberpunkNeon">🌆 Cyberpunk Neon</option>
+                <option value="baroqueOil">🖼️ Baroque Oil</option>
+                <option value="pixelArt">👾 Pixel Art</option>
+                <option value="pixarStyle">🎭 Pixar 3D</option>
+                <option value="caricature">😄 Caricature</option>
+                <option value="surrealist">🌀 Surrealist</option>
+                <option value="impressionist">🎭 Impressionist</option>
+                <option value="oilPainting">🎨 Oil Painting</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-weight:600">Quality</label>
+              <select id="bulkQuality" class="input">
+                <option value="1024">HD (1024px)</option>
+                <option value="1280">Full HD (1280px)</option>
+                <option value="1536">2K (1536px)</option>
+                <option value="2048">4K (2048px)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="bulk-counter">
+            <label style="font-weight:600">Number of Images:</label>
+            <div style="display:flex;align-items:center;gap:12px">
+              <button class="counter-btn" id="bulkMinus">-</button>
+              <div class="counter-display" id="bulkCount">4</div>
+              <button class="counter-btn" id="bulkPlus">+</button>
+            </div>
+            <div class="muted" style="font-size:13px">Generate 1-10 images at once</div>
+          </div>
+          
+          <div class="bar">
+            <button id="bulkGenerate" class="btn primary" style="font-size:16px;padding:16px 24px">🚀 Generate Bulk Images</button>
+            <button id="bulkClear" class="btn ghost">Clear Results</button>
+            <button id="bulkDownloadAll" class="btn secondary" style="display:none">📦 Download All</button>
+            <button id="bulkSaveAll" class="btn success" style="display:none">💾 Save All</button>
+          </div>
+          
+          <div class="progress-container" id="bulkProgress" style="display:none">
+            <div class="progress-bar" id="bulkProgressBar"></div>
+          </div>
+          <div id="bulkStatus" class="muted" style="margin-top:12px;font-weight:500"></div>
+          
+          <div id="bulkResults" class="bulk-grid" style="margin-top:24px"></div>
+        </div>
+      </section>
+
+      <!-- Gallery Page -->
+      <section id="page-gallery" class="page">
+        <div class="card pad">
+          <h2 class="section-title">🖼️ Gallery & History</h2>
+          
+          <div class="gallery-stats">
+            <div class="stat-card">
+              <div class="stat-number" id="galStatTotal">0</div>
+              <div class="stat-label">Total Images</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="galStatFaves">0</div>
+              <div class="stat-label">Favorites</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="galStatStyles">0</div>
+              <div class="stat-label">Styles Used</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="galStatToday">0</div>
+              <div class="stat-label">Today</div>
+            </div>
+          </div>
+          
+          <div class="toolbar">
+            <input id="galSearch" class="input" placeholder="Search by prompt, style..." style="flex:1;max-width:300px">
+            <select id="galFilter" class="input" style="max-width:200px">
+              <option value="all">All Images</option>
+              <option value="fav">Favorites Only</option>
+              <option value="today">Today</option>
+              <option value="week">This Week</option>
+            </select>
+            <select id="galStyleFilter" class="input" style="max-width:200px">
+              <option value="all">All Styles</option>
+              <option value="photorealistic">Photorealistic</option>
+              <option value="anime">Anime</option>
+              <option value="ghibli">Ghibli</option>
+              <option value="cyberpunkNeon">Cyberpunk</option>
+            </select>
+            <button class="btn ghost" id="galRefresh">🔄 Refresh</button>
+            <button class="btn danger" id="galClear">🗑️ Clear All</button>
+          </div>
+          
+          <div id="galleryGrid" class="grid-gallery"></div>
+          <div id="galleryEmpty" style="text-align:center;padding:60px;opacity:0.7;display:none">
+            <div style="font-size:64px;margin-bottom:20px">📷</div>
+            <h3>No images in gallery</h3>
+            <p>Generate some amazing AI art to see it here!</p>
+            <button class="btn primary" data-go="gen">Start Creating</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Styles Guide Page -->
+      <section id="page-styles" class="page">
+        <div class="card pad">
+          <h2 class="section-title">🎯 Style Guide</h2>
+          <p style="margin-bottom:30px;font-size:16px">Explore all available artistic styles and see what makes each one unique.</p>
+          
+          <div class="grid-gallery">
+            <div class="style-showcase" data-style="photorealistic">
+              <div class="tile">
+                <div style="height:180px;background:linear-gradient(45deg,#333,#666);display:flex;align-items:center;justify-content:center;color:white;font-size:48px">📸</div>
+                <div style="padding:16px">
+                  <h4 style="margin:0 0 8px 0">Photorealistic</h4>
+                  <p style="margin:0;font-size:13px;opacity:0.8">Hyper-detailed, lifelike images that look like photographs. Perfect for portraits, landscapes, and realistic scenes.</p>
+                  <button class="btn ghost" style="margin-top:12px;width:100%" data-demo-style="photorealistic">Try This Style</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="style-showcase" data-style="ghibli">
+              <div class="tile">
+                <div style="height:180px;background:linear-gradient(45deg,#98FB98,#90EE90);display:flex;align-items:center;justify-content:center;color:white;font-size:48px">🌸</div>
+                <div style="padding:16px">
+                  <h4 style="margin:0 0 8px 0">Studio Ghibli</h4>
+                  <p style="margin:0;font-size:13px;opacity:0.8">Whimsical, warm, hand-painted aesthetic inspired by Studio Ghibli films. Soft colors and magical atmosphere.</p>
+                  <button class="btn ghost" style="margin-top:12px;width:100%" data-demo-style="ghibli">Try This Style</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="style-showcase" data-style="cyberpunkNeon">
+              <div class="tile">
+                <div style="height:180px;background:linear-gradient(45deg,#FF6B35,#F7931E);display:flex;align-items:center;justify-content:center;color:white;font-size:48px">🌆</div>
+                <div style="padding:16px">
+                  <h4 style="margin:0 0 8px 0">Cyberpunk Neon</h4>
+                  <p style="margin:0;font-size:13px;opacity:0.8">Futuristic cityscapes with vibrant neon lights, rain reflections, and moody cyberpunk atmosphere.</p>
+                  <button class="btn ghost" style="margin-top:12px;width:100%" data-demo-style="cyberpunkNeon">Try This Style</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="style-showcase" data-style="anime">
+              <div class="tile">
+                <div style="height:180px;background:linear-gradient(45deg,#FF69B4,#FF1493);display:flex;align-items:center;justify-content:center;color:white;font-size:48px">👺</div>
+                <div style="padding:16px">
+                  <h4 style="margin:0 0 8px 0">Anime</h4>
+                  <p style="margin:0;font-size:13px;opacity:0.8">Traditional Japanese animation style with cel-shading, vibrant colors, and expressive characters.</p>
+                  <button class="btn ghost" style="margin-top:12px;width:100%" data-demo-style="anime">Try This Style</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="style-showcase" data-style="pixelArt">
+              <div class="tile">
+                <div style="height:180px;background:linear-gradient(45deg,#8A2BE2,#9932CC);display:flex;align-items:center;justify-content:center;color:white;font-size:48px">👾</div>
+                <div style="padding:16px">
+                  <h4 style="margin:0 0 8px 0">Pixel Art</h4>
+                  <p style="margin:0;font-size:13px;opacity:0.8">Retro 8-bit and 16-bit style pixelated artwork. Perfect for game assets and nostalgic designs.</p>
+                  <button class="btn ghost" style="margin-top:12px;width:100%" data-demo-style="pixelArt">Try This Style</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="style-showcase" data-style="baroqueOil">
+              <div class="tile">
+                <div style="height:180px;background:linear-gradient(45deg,#DAA520,#B8860B);display:flex;align-items:center;justify-content:center;color:white;font-size:48px">🖼️</div>
+                <div style="padding:16px">
+                  <h4 style="margin:0 0 8px 0">Baroque Oil</h4>
+                  <p style="margin:0;font-size:13px;opacity:0.8">Classic European oil painting with dramatic lighting, ornate details, and rich textures.</p>
+                  <button class="btn ghost" style="margin-top:12px;width:100%" data-demo-style="baroqueOil">Try This Style</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Other pages (simplified for brevity) -->
+      <section id="page-t2i" class="page">
+        <div class="card pad">
+          <h2 class="section-title">📝 Text → Image</h2>
+          <div class="row">
+            <div>
+              <label>Prompt</label>
+              <textarea id="t2iPrompt" class="input" rows="4"></textarea>
+            </div>
+            <div>
+              <label>Style</label>
+              <select id="t2iStyle" class="input">
+                <option value="photorealistic">Photorealistic</option>
+                <option value="anime">Anime</option>
+                <option value="ghibli">Ghibli</option>
+              </select>
+              <label style="margin-top:8px;display:block">Resolution</label>
+              <select id="t2iSize" class="input">
+                <option value="1024">1024px</option>
+                <option value="1536">1536px</option>
+                <option value="2048">2048px</option>
+              </select>
+            </div>
+          </div>
+          <div class="bar" style="margin-top:16px">
+            <button id="t2iGenerate" class="btn primary">Generate</button>
+            <button id="t2iSave" class="btn secondary" disabled>Save</button>
+          </div>
+          <div class="result-wrap" style="margin-top:16px">
+            <div class="image-box" id="t2iBox" style="display:none">
+              <img id="t2iImage" alt="T2I">
+              <div class="chip" id="t2iChip">T2I</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings Page -->
+      <section id="page-settings" class="page">
+        <div class="card pad">
+          <h2 class="section-title">⚙️ Settings</h2>
+          <div class="row">
+            <div>
+              <label>Default Style</label>
+              <select id="setStyle" class="input">
+                <option value="photorealistic">Photorealistic</option>
+                <option value="ghibli">Studio Ghibli</option>
+                <option value="anime">Anime</option>
+                <option value="cyberpunkNeon">Cyberpunk Neon</option>
+              </select>
+            </div>
+            <div>
+              <label>Default Quality</label>
+              <select id="setQuality" class="input">
+                <option value="1024">1024px</option>
+                <option value="1536">1536px</option>
+                <option value="2048">2048px</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label>Auto-Enhancement</label>
+              <select id="setEnhancement" class="input">
+                <option value="true">Enabled</option>
+                <option value="false">Disabled</option>
+              </select>
+            </div>
+            <div>
+              <label>Default Bulk Count</label>
+              <select id="setBulkCount" class="input">
+                <option value="2">2 Images</option>
+                <option value="4">4 Images</option>
+                <option value="6">6 Images</option>
+                <option value="8">8 Images</option>
+              </select>
+            </div>
+          </div>
+          <div class="bar" style="margin-top:20px">
+            <button id="saveSettings" class="btn primary">💾 Save Settings</button>
+            <button id="resetSettings" class="btn ghost">🔄 Reset to Default</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Additional placeholder pages -->
+      <section id="page-i2i" class="page">
+        <div class="card pad">
+          <h2 class="section-title">🎭 Image → Image</h2>
+          <p>Upload an image and transform it with AI</p>
+        </div>
+      </section>
+
+      <section id="page-i2t" class="page">
+        <div class="card pad">
+          <h2 class="section-title">🔎 Image → Text</h2>
+          <p>Extract descriptions from images</p>
+        </div>
+      </section>
+
+      <section id="page-prompts" class="page">
+        <div class="card pad">
+          <h2 class="section-title">📚 Prompt Library</h2>
+          <p>Curated collection of effective prompts</p>
+        </div>
+      </section>
+
+      <section id="page-editor" class="page">
+        <div class="card pad">
+          <h2 class="section-title">🛠️ Image Editor</h2>
+          <p>Basic image editing tools</p>
+        </div>
+      </section>
+
+      <section id="page-tutorial" class="page">
+        <div class="card pad">
+          <h2 class="section-title">🎓 Tutorial</h2>
+          <p>Learn how to create amazing AI art</p>
+        </div>
+      </section>
+
+      <section id="page-profile" class="page">
+        <div class="card pad">
+          <h2 class="section-title">👤 Profile</h2>
+          <p id="profileStats">Loading stats...</p>
+        </div>
+      </section>
+
+      <section id="page-premium" class="page">
+        <div class="card pad">
+          <h2 class="section-title">💎 Premium Features</h2>
+          <p>All features are free forever!</p>
+        </div>
+      </section>
+
+      <section id="page-help" class="page">
+        <div class="card pad">
+          <h2 class="section-title">🆘 Help & Support</h2>
+          <p>Need help? We're here for you!</p>
+        </div>
+      </section>
+
+      <section id="page-about" class="page">
+        <div class="card pad">
+          <h2 class="section-title">ℹ️ About ColorStage AI</h2>
+          <p>Advanced AI image generation platform</p>
+        </div>
+      </section>
+    </main>
+
+    <footer style="margin:40px 0 20px">
+      <div class="ad">
+        <div id="footer-ad">🎯 Premium Ad Placement</div>
+      </div>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  
+  <div class="modal-overlay" id="shareModal">
+    <div class="modal">
+      <h3>📤 Share Your Creation</h3>
+      <p>Copy the link below to share your artwork:</p>
+      <input id="shareUrl" class="input" readonly style="margin:16px 0">
+      <div class="bar">
+        <button class="btn primary" onclick="copyShareUrl()">📋 Copy Link</button>
+        <button class="btn ghost" onclick="closeShareModal()">✕ Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Enhanced utilities and app state
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
+    const toast = (message, type = 'info') => {
+      const t = $('#toast');
+      t.textContent = message;
+      t.className = `toast show ${type}`;
+      setTimeout(() => t.classList.remove('show'), 3000);
+    };
+    
+    const store = {
+      get(key, defaultValue) {
+        try {
+          const value = localStorage.getItem(key);
+          return value ? JSON.parse(value) : defaultValue;
+        } catch {
+          return defaultValue;
+        }
+      },
+      set(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+        } catch {
+          console.warn('Storage failed');
+        }
+      }
+    };
+
+    // Enhanced app state with new features
+    const app = {
+      settings: store.get('cs_settings', {
+        defaultStyle: 'photorealistic',
+        defaultQuality: '1536',
+        autoEnhancement: true,
+        defaultBulkCount: 4
+      }),
+      gallery: store.get('cs_gallery', []),
+      promptsSaved: store.get('cs_prompts', []),
+      currentStyle: 'photorealistic',
+      bulkCount: 4,
+      
+      // Enhanced statistics
+      stats() {
+        const favs = this.gallery.filter(g => g.fav).length;
+        const today = this.gallery.filter(g => {
+          const itemDate = new Date(g.ts || 0);
+          const todayDate = new Date();
+          return itemDate.toDateString() === todayDate.toDateString();
+        }).length;
+        
+        const styles = new Set(this.gallery.map(g => g.style)).size;
+        
+        return {
+          images: this.gallery.length,
+          favs,
+          prompts: this.promptsSaved.length,
+          today,
+          styles
+        };
+      }
+    };
+
+    // Enhanced style configurations with detailed prompts
+    const styleConfig = {
+      photorealistic: {
+        name: 'Photorealistic',
+        suffix: ', photorealistic, 8K resolution, professional photography, cinematic lighting, ultra-detailed, sharp focus, DSLR quality',
+        emoji: '📸'
+      },
+      digitalArt: {
+        name: 'Digital Art',
+        suffix: ', digital art, concept art, vibrant colors, detailed illustration, artstation trending, digital painting',
+        emoji: '🎨'
+      },
+      anime: {
+        name: 'Anime',
+        suffix: ', anime style, manga art, cel-shaded, Japanese animation, colorful, detailed anime illustration',
+        emoji: '👺'
+      },
+      ghibli: {
+        name: 'Studio Ghibli',
+        suffix: ', Studio Ghibli style, Miyazaki inspired, soft colors, whimsical, hand-painted animation, peaceful atmosphere',
+        emoji: '🌸'
+      },
+      cyberpunkNeon: {
+        name: 'Cyberpunk Neon',
+        suffix: ', cyberpunk style, neon lights, futuristic cityscape, rain reflections, moody atmosphere, sci-fi, blade runner aesthetic',
+        emoji: '🌆'
+      },
+      baroqueOil: {
+        name: 'Baroque Oil Painting',
+        suffix: ', baroque oil painting, classical art, chiaroscuro lighting, ornate details, renaissance style, museum quality',
+        emoji: '🖼️'
+      },
+      pixelArt: {
+        name: 'Pixel Art',
+        suffix: ', pixel art style, 8-bit, retro gaming, low resolution, pixelated, nostalgic, indie game art',
+        emoji: '👾'
+      },
+      pixarStyle: {
+        name: 'Pixar 3D',
+        suffix: ', Pixar animation style, 3D rendered, colorful, family-friendly, soft lighting, cartoon realism',
+        emoji: '🎭'
+      },
+      caricature: {
+        name: 'Caricature Art',
+        suffix: ', caricature style, exaggerated features, humorous, cartoon portrait, expressive, comic art',
+        emoji: '😄'
+      },
+      surrealist: {
+        name: 'Surrealist Abstraction',
+        suffix: ', surrealist art, dreamlike, abstract, Salvador Dali inspired, impossible geometry, mind-bending',
+        emoji: '🌀'
+      },
+      impressionist: {
+        name: 'Impressionist',
+        suffix: ', impressionist painting, loose brushstrokes, outdoor lighting, Monet style, vibrant colors, artistic interpretation',
+        emoji: '🎭'
+      },
+      oilPainting: {
+        name: 'Oil Painting',
+        suffix: ', traditional oil painting, textured brushstrokes, classical technique, rich colors, artistic masterpiece',
+        emoji: '🎨'
+      }
+    };
+
+    // Navigation and drawer functionality
+    const drawer = {
+      open: () => $('#drawer').classList.add('open'),
+      close: () => $('#drawer').classList.remove('open'),
+      toggle: () => $('#drawer').classList.toggle('open')
+    };
+
+    $('#openDrawer').addEventListener('click', drawer.open);
+    $('#closeDrawer').addEventListener('click', drawer.close);
+    
+    // Router system
+    const routes = ['home', 'gen', 'bulk', 't2i', 'i2i', 'i2t', 'gallery', 'prompts', 'editor', 'styles', 'tutorial', 'profile', 'premium', 'settings', 'help', 'about'];
+    
+    const showRoute = (route) => {
+      routes.forEach(r => {
+        const page = $(`#page-${r}`);
+        const navItem = $(`[data-route="${r}"]`);
+        
+        if (page) page.classList.toggle('active', r === route);
+        if (navItem) navItem.classList.toggle('active', r === route);
+      });
+      
+      history.pushState({ page: route }, route, `#${route}`);
+      drawer.close();
+      
+      // Route-specific initialization
+      switch(route) {
+        case 'home':
+          updateHomeStats();
+          updateHomeRecent();
+          break;
+        case 'gallery':
+          renderGallery();
+          break;
+        case 'bulk':
+          initBulkPage();
+          break;
+        case 'settings':
+          loadSettings();
+          break;
+      }
+    };
+
+    // Navigation event listeners
+    $('#navList').addEventListener('click', e => {
+      const li = e.target.closest('[data-route]');
+      if (li) showRoute(li.dataset.route);
+    });
+
+    document.body.addEventListener('click', e => {
+      const goBtn = e.target.closest('[data-go]');
+      if (goBtn) showRoute(goBtn.dataset.go);
+      
+      const insertBtn = e.target.closest('[data-insert-prompt]');
+      if (insertBtn) {
+        $('#genPrompt').value = insertBtn.dataset.insertPrompt;
+        showRoute('gen');
+      }
+    });
+
+    // Enhanced image generation
+    const imageGen = {
+      // Helper functions
+      dimsFromAR: (base, ar) => {
+        const baseNum = Number(base);
+        switch (ar) {
+          case '16:9': return { w: baseNum, h: Math.round(baseNum * 9 / 16) };
+          case '9:16': return { w: Math.round(baseNum * 9 / 16), h: baseNum };
+          case '4:3': return { w: baseNum, h: Math.round(baseNum * 3 / 4) };
+          case '3:4': return { w: Math.round(baseNum * 3 / 4), h: baseNum };
+          default: return { w: baseNum, h: baseNum };
+        }
+      },
+
+      buildPollinationsUrl: ({ prompt, w, h, seed }) => {
+        const encodedPrompt = encodeURIComponent(prompt);
+        const finalSeed = seed || Math.floor(Math.random() * 1000000);
+        return `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${w}&height=${h}&seed=${finalSeed}&nologo=true&enhance=true&model=flux`;
+      },
+
+      loadImage: (url) => new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        const timeout = setTimeout(() => reject(new Error('Image load timeout')), 45000);
+        
+        img.onload = () => {
+          clearTimeout(timeout);
+          resolve(url);
+        };
+        
+        img.onerror = () => {
+          clearTimeout(timeout);
+          reject(new Error('Image load failed'));
+        };
+        
+        img.src = url;
+      }),
+
+      enhancePrompt: async (prompt, style, enhancement) => {
+        let enhanced = prompt.trim();
+        
+        // Add style-specific enhancements
+        if (styleConfig[style]) {
+          enhanced += styleConfig[style].suffix;
+        }
+        
+        // Add enhancement-specific terms
+        switch (enhancement) {
+          case 'cinematic':
+            enhanced += ', cinematic composition, dramatic lighting, film grain, epic scale';
+            break;
+          case 'artistic':
+            enhanced += ', artistic masterpiece, creative composition, expressive, award-winning';
+            break;
+          case 'photographic':
+            enhanced += ', professional photography, perfect exposure, bokeh, high detail';
+            break;
+        }
+        
+        // Add quality boosters
+        if (!enhanced.includes('high quality') && !enhanced.includes('8K')) {
+          enhanced += ', high quality, detailed';
+        }
+        
+        return enhanced;
+      },
+
+      generate: async (prompt, style, ar, quality, seed, enhancement = 'auto') => {
+        const enhancedPrompt = await imageGen.enhancePrompt(prompt, style, enhancement);
+        const { w, h } = imageGen.dimsFromAR(quality, ar);
+        const url = imageGen.buildPollinationsUrl({
+          prompt: enhancedPrompt,
+          w, h, seed
+        });
+        
+        const finalUrl = await imageGen.loadImage(url);
+        return { url: finalUrl, w, h, prompt: enhancedPrompt };
+      }
+    };
+
+    // Style selection functionality
+    const initStyleSelection = () => {
+      const styleGrid = $('#styleGrid');
+      if (!styleGrid) return;
+
+      styleGrid.addEventListener('click', e => {
+        const card = e.target.closest('.style-card');
+        if (!card) return;
+
+        // Update active state
+        $$('.style-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        
+        // Update current style
+        app.currentStyle = card.dataset.style;
+      });
+    };
+
+    // Enhanced generation page functionality
+    let currentGeneration = null;
+
+    const initGenerationPage = () => {
+      // Style selection
+      initStyleSelection();
+
+      // Clear button
+      $('#btnClear')?.addEventListener('click', () => {
+        $('#genPrompt').value = '';
+        $('#genSeed').value = '';
+        $('#genStatus').textContent = '';
+        hideGenerationResult();
+      });
+
+      // Random prompt button
+      $('#btnRandom')?.addEventListener('click', () => {
+        const randomPrompts = [
+          'A mystical forest with glowing fireflies and ancient trees',
+          'Futuristic space station orbiting a colorful nebula',
+          'Cozy cottage in a field of wildflowers during golden hour',
+          'Majestic dragon perched on a mountain peak under starry sky',
+          'Underwater city with bioluminescent coral and sea creatures',
+          'Steampunk airship floating above Victorian London',
+          'Serene Japanese garden with cherry blossoms and koi pond',
+          'Post-apocalyptic wasteland with overgrown ruins'
+        ];
+        const randomPrompt = randomPrompts[Math.floor(Math.random() * randomPrompts.length)];
+        $('#genPrompt').value = randomPrompt;
+      });
+
+      // Enhancement button
+      $('#btnEnhance')?.addEventListener('click', async () => {
+        const prompt = $('#genPrompt').value.trim();
+        if (!prompt) {
+          toast('Enter a prompt first', 'warning');
+          return;
+        }
+
+        $('#genStatus').textContent = 'Enhancing prompt...';
+        try {
+          const enhanced = await imageGen.enhancePrompt(
+            prompt, 
+            app.currentStyle, 
+            $('#genEnhancement').value
+          );
+          $('#genPrompt').value = enhanced;
+          $('#genStatus').textContent = 'Prompt enhanced! 🎨';
+        } catch (error) {
+          $('#genStatus').textContent = 'Enhancement failed';
+          toast('Failed to enhance prompt', 'error');
+        }
+      });
+
+      // Generate button
+      $('#btnGenerate')?.addEventListener('click', async () => {
+        await generateSingle();
+      });
+
+      // Result actions
+      $('#btnDownload')?.addEventListener('click', () => {
+        if (currentGeneration) {
+          downloadImage(currentGeneration.url, `colorstage-${Date.now()}.png`);
+        }
+      });
+
+      $('#btnSave')?.addEventListener('click', () => {
+        if (currentGeneration) {
+          saveToGallery(currentGeneration);
+          toast('Saved to gallery! 💾', 'success');
+        }
+      });
+
+      $('#btnUpscale')?.addEventListener('click', async () => {
+        if (!currentGeneration) return;
+        
+        try {
+          $('#genStatus').textContent = 'Upscaling image...';
+          const url = new URL(currentGeneration.url);
+          const newW = (Number(url.searchParams.get('width')) || currentGeneration.w) * 2;
+          const newH = (Number(url.searchParams.get('height')) || currentGeneration.h) * 2;
+          
+          url.searchParams.set('width', newW);
+          url.searchParams.set('height', newH);
+          
+          const upscaledUrl = await imageGen.loadImage(url.toString());
+          currentGeneration.url = upscaledUrl;
+          currentGeneration.w = newW;
+          currentGeneration.h = newH;
+          
+          $('#genImage').src = upscaledUrl;
+          $('#genQualityChip').textContent = `${newW}×${newH}`;
+          $('#genStatus').textContent = 'Upscaled successfully! 🔍';
+          toast('Image upscaled 2x! 🚀', 'success');
+        } catch (error) {
+          $('#genStatus').textContent = 'Upscaling failed';
+          toast('Failed to upscale image', 'error');
+        }
+      });
+
+      $('#btnShare')?.addEventListener('click', () => {
+        if (currentGeneration) {
+          $('#shareUrl').value = currentGeneration.url;
+          $('#shareModal').classList.add('show');
+        }
+      });
+
+      $('#btnVariation')?.addEventListener('click', async () => {
+        if (!currentGeneration) return;
+        
+        const prompt = $('#genPrompt').value.trim();
+        if (!prompt) return;
+        
+        // Generate with different seed for variation
+        const newSeed = Math.floor(Math.random() * 1000000);
+        $('#genSeed').value = newSeed;
+        await generateSingle();
+      });
+    };
+
+    const generateSingle = async () => {
+      const prompt = $('#genPrompt').value.trim();
+      if (!prompt) {
+        toast('Please enter a prompt', 'warning');
+        return;
+      }
+
+      const style = app.currentStyle;
+      const ar = $('#genAR').value;
+      const quality = $('#genQuality').value;
+      const seed = $('#genSeed').value.trim() || undefined;
+      const enhancement = $('#genEnhancement').value;
+
+      try {
+        showProgress('#genProgress', '#genProgressBar');
+        $('#genStatus').textContent = 'Generating your masterpiece... ✨';
+        
+        const result = await imageGen.generate(prompt, style, ar, quality, seed, enhancement);
+        
+        currentGeneration = {
+          ...result,
+          originalPrompt: prompt,
+          style,
+          ar,
+          quality,
+          seed,
+          ts: Date.now()
+        };
+
+        showGenerationResult(result);
+        $('#genStatus').textContent = 'Generation complete! 🎉';
+        toast('Image generated successfully! 🎨', 'success');
+        
+      } catch (error) {
+        console.error('Generation failed:', error);
+        $('#genStatus').textContent = `Generation failed: ${error.message}`;
+        toast('Generation failed. Please try again.', 'error');
+      } finally {
+        hideProgress('#genProgress');
+      }
+    };
+
+    const showGenerationResult = (result) => {
+      $('#genImage').src = result.url;
+      $('#genImageBox').style.display = 'block';
+      $('#genActions').style.display = 'flex';
+      $('#genQualityChip').textContent = `${result.w}×${result.h}`;
+    };
+
+    const hideGenerationResult = () => {
+      $('#genImageBox').style.display = 'none';
+      $('#genActions').style.display = 'none';
+    };
+
+    // Bulk generation functionality
+    let bulkResults = [];
+
+    const initBulkPage = () => {
+      // Counter controls
+      $('#bulkPlus')?.addEventListener('click', () => {
+        if (app.bulkCount < 10) {
+          app.bulkCount++;
+          $('#bulkCount').textContent = app.bulkCount;
+        }
+      });
+
+      $('#bulkMinus')?.addEventListener('click', () => {
+        if (app.bulkCount > 1) {
+          app.bulkCount--;
+          $('#bulkCount').textContent = app.bulkCount;
+        }
+      });
+
+      // Generate bulk images
+      $('#bulkGenerate')?.addEventListener('click', async () => {
+        await generateBulk();
+      });
+
+      // Clear results
+      $('#bulkClear')?.addEventListener('click', () => {
+        bulkResults = [];
+        $('#bulkResults').innerHTML = '';
+        $('#bulkDownloadAll').style.display = 'none';
+        $('#bulkSaveAll').style.display = 'none';
+        $('#bulkStatus').textContent = '';
+      });
+
+      // Download all
+      $('#bulkDownloadAll')?.addEventListener('click', () => {
+        bulkResults.forEach((result, index) => {
+          setTimeout(() => {
+            downloadImage(result.url, `colorstage-bulk-${index + 1}-${Date.now()}.png`);
+          }, index * 500); // Stagger downloads
+        });
+        toast(`Downloading ${bulkResults.length} images...`, 'info');
+      });
+
+      // Save all
+      $('#bulkSaveAll')?.addEventListener('click', () => {
+        bulkResults.forEach(result => saveToGallery(result));
+        toast(`Saved ${bulkResults.length} images to gallery!`, 'success');
+        updateHomeStats();
+      });
+    };
+
+    const generateBulk = async () => {
+      const prompt = $('#bulkPrompt').value.trim();
+      if (!prompt) {
+        toast('Please enter a prompt for bulk generation', 'warning');
+        return;
+      }
+
+      const style = $('#bulkStyle').value;
+      const quality = $('#bulkQuality').value;
+      const count = app.bulkCount;
+
+      try {
+        bulkResults = [];
+        $('#bulkResults').innerHTML = '';
+        showProgress('#bulkProgress', '#bulkProgressBar');
+        $('#bulkStatus').textContent = `Generating ${count} images... ⏳`;
+
+        // Generate images in parallel
+        const promises = [];
+        for (let i = 0; i < count; i++) {
+          const uniqueSeed = Math.floor(Math.random() * 1000000) + i;
+          promises.push(
+            imageGen.generate(prompt, style, '1:1', quality, uniqueSeed.toString())
+              .then(result => ({ ...result, index: i + 1 }))
+          );
+        }
+
+        // Wait for all to complete and update progress
+        for (let i = 0; i < promises.length; i++) {
+          try {
+            const result = await promises[i];
+            bulkResults.push({
+              ...result,
+              originalPrompt: prompt,
+              style,
+              quality,
+              ts: Date.now()
+            });
+            
+            // Update progress
+            const progress = ((i + 1) / count) * 100;
+            updateProgress('#bulkProgressBar', progress);
+            $('#bulkStatus').textContent = `Generated ${i + 1} of ${count} images...`;
+            
+            // Add to results grid
+            addBulkResult(result, i);
+            
+          } catch (error) {
+            console.error(`Failed to generate image ${i + 1}:`, error);
+          }
+        }
+
+        $('#bulkStatus').textContent = `✅ Generated ${bulkResults.length} images successfully!`;
+        $('#bulkDownloadAll').style.display = bulkResults.length > 0 ? 'inline-flex' : 'none';
+        $('#bulkSaveAll').style.display = bulkResults.length > 0 ? 'inline-flex' : 'none';
+        toast(`Bulk generation complete! Created ${bulkResults.length} images 🎉`, 'success');
+
+      } catch (error) {
+        console.error('Bulk generation failed:', error);
+        $('#bulkStatus').textContent = 'Bulk generation failed';
+        toast('Bulk generation failed. Please try again.', 'error');
+      } finally {
+        hideProgress('#bulkProgress');
+      }
+    };
+
+    const addBulkResult = (result, index) => {
+      const container = $('#bulkResults');
+      const div = document.createElement('div');
+      div.className = 'tile';
+      div.innerHTML = `
+        <img src="${result.url}" alt="Bulk result ${index + 1}" loading="lazy">
+        <div class="tile-actions">
+          <div>
+            <button class="btn-mini mini" onclick="downloadImage('${result.url}', 'bulk-${index + 1}-${Date.now()}.png')">📥</button>
+            <button class="btn-mini mini" onclick="shareImage('${result.url}')">📤</button>
+          </div>
+          <div>
+            <button class="btn-mini mini" onclick="saveToGallery(bulkResults[${index}])">💾</button>
+          </div>
+        </div>
+        <div class="chip">${index + 1}</div>
+      `;
+      container.appendChild(div);
+    };
+
+    // Gallery functionality
+    const renderGallery = () => {
+      const search = $('#galSearch')?.value.toLowerCase() || '';
+      const filter = $('#galFilter')?.value || 'all';
+      const styleFilter = $('#galStyleFilter')?.value || 'all';
+      
+      const filtered = app.gallery.filter(item => {
+        // Search filter
+        const matchesSearch = !search || 
+          item.originalPrompt?.toLowerCase().includes(search) ||
+          item.style?.toLowerCase().includes(search);
+        
+        // Time filter
+        let matchesTime = true;
+        if (filter === 'fav') matchesTime = item.fav;
+        else if (filter === 'today') {
+          const itemDate = new Date(item.ts || 0);
+          const today = new Date();
+          matchesTime = itemDate.toDateString() === today.toDateString();
+        } else if (filter === 'week') {
+          const itemDate = new Date(item.ts || 0);
+          const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+          matchesTime = itemDate >= weekAgo;
+        }
+        
+        // Style filter
+        const matchesStyle = styleFilter === 'all' || item.style === styleFilter;
+        
+        return matchesSearch && matchesTime && matchesStyle;
+      });
+
+      const grid = $('#galleryGrid');
+      const empty = $('#galleryEmpty');
+      
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      
+      empty.style.display = 'none';
+      grid.innerHTML = '';
+      
+      filtered.forEach(item => {
+        const tile = document.createElement('div');
+        tile.className = 'tile';
+        tile.innerHTML = `
+          <img src="${item.url}" alt="Generated image" loading="lazy">
+          <div class="tile-actions">
+            <div>
+              <button class="btn-mini mini" onclick="downloadImage('${item.url}', '${item.id || 'image'}.png')">📥</button>
+              <button class="btn-mini mini" onclick="shareImage('${item.url}')">📤</button>
+            </div>
+            <div>
+              <button class="btn-mini mini ${item.fav ? 'fav active' : 'fav'}" onclick="toggleFavorite('${item.id}')">❤</button>
+              <button class="btn-mini mini" onclick="deleteFromGallery('${item.id}')">🗑️</button>
+            </div>
+          </div>
+          <div class="chip">${styleConfig[item.style]?.emoji || '🎨'} ${styleConfig[item.style]?.name || item.style}</div>
+        `;
+        grid.appendChild(tile);
+      });
+
+      // Update gallery stats
+      updateGalleryStats(filtered);
+    };
+
+    const updateGalleryStats = (items = app.gallery) => {
+      const stats = app.stats();
+      $('#galStatTotal').textContent = stats.images;
+      $('#galStatFaves').textContent = stats.favs;
+      $('#galStatStyles').textContent = stats.styles;
+      $('#galStatToday').textContent = stats.today;
+    };
+
+    // Utility functions
+    const showProgress = (containerSelector, barSelector) => {
+      const container = $(containerSelector);
+      const bar = $(barSelector);
+      if (container) container.style.display = 'block';
+      if (bar) bar.style.width = '0%';
+    };
+
+    const hideProgress = (containerSelector) => {
+      const container = $(containerSelector);
+      if (container) container.style.display = 'none';
+    };
+
+    const updateProgress = (barSelector, percentage) => {
+      const bar = $(barSelector);
+      if (bar) bar.style.width = `${Math.min(100, Math.max(0, percentage))}%`;
+    };
+
+    const downloadImage = (url, filename) => {
+      fetch(url)
+        .then(response => response.blob())
+        .then(blob => {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(a.href);
+        })
+        .catch(error => {
+          console.error('Download failed:', error);
+          toast('Download failed', 'error');
+        });
+    };
+
+    const saveToGallery = (item) => {
+      const galleryItem = {
+        id: crypto.randomUUID(),
+        url: item.url,
+        originalPrompt: item.originalPrompt || item.prompt,
+        style: item.style,
+        w: item.w,
+        h: item.h,
+        fav: false,
+        ts: Date.now()
+      };
+      
+      app.gallery.unshift(galleryItem);
+      store.set('cs_gallery', app.gallery);
+      updateHomeStats();
+    };
+
+    const toggleFavorite = (id) => {
+      const item = app.gallery.find(g => g.id === id);
+      if (item) {
+        item.fav = !item.fav;
+        store.set('cs_gallery', app.gallery);
+        renderGallery();
+        updateHomeStats();
+        toast(item.fav ? 'Added to favorites ❤️' : 'Removed from favorites', 'info');
+      }
+    };
+
+    const deleteFromGallery = (id) => {
+      if (confirm('Delete this image from gallery?')) {
+        const index = app.gallery.findIndex(g => g.id === id);
+        if (index >= 0) {
+          app.gallery.splice(index, 1);
+          store.set('cs_gallery', app.gallery);
+          renderGallery();
+          updateHomeStats();
+          toast('Image deleted', 'info');
+        }
+      }
+    };
+
+    const shareImage = (url) => {
+      $('#shareUrl').value = url;
+      $('#shareModal').classList.add('show');
+    };
+
+    // Home page functions
+    const updateHomeStats = () => {
+      const stats = app.stats();
+      $('#homeStatImages').textContent = stats.images;
+      $('#homeStatFaves').textContent = stats.favs;
+    };
+
+    const updateHomeRecent = () => {
+      const container = $('#homeRecent');
+      const empty = $('#homeEmpty');
+      
+      if (app.gallery.length === 0) {
+        container.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      
+      empty.style.display = 'none';
+      container.innerHTML = '';
+      
+      app.gallery.slice(0, 6).forEach(item => {
+        const tile = document.createElement('div');
+        tile.className = 'tile';
+        tile.innerHTML = `
+          <img src="${item.url}" alt="Recent" loading="lazy">
+          <div class="tile-actions">
+            <button class="btn-mini mini ${item.fav ? 'fav active' : 'fav'}" onclick="toggleFavorite('${item.id}')">❤</button>
+            <button class="btn-mini mini" onclick="downloadImage('${item.url}', '${item.id}.png')">📥</button>
+          </div>
+          <div class="chip">${styleConfig[item.style]?.emoji || '🎨'}</div>
+        `;
+        container.appendChild(tile);
+      });
+    };
+
+    // Settings functionality
+    const loadSettings = () => {
+      $('#setStyle').value = app.settings.defaultStyle || 'photorealistic';
+      $('#setQuality').value = app.settings.defaultQuality || '1536';
+      $('#setEnhancement').value = app.settings.autoEnhancement ? 'true' : 'false';
+      $('#setBulkCount').value = app.settings.defaultBulkCount || 4;
+    };
+
+    $('#saveSettings')?.addEventListener('click', () => {
+      app.settings = {
+        defaultStyle: $('#setStyle').value,
+        defaultQuality: $('#setQuality').value,
+        autoEnhancement: $('#setEnhancement').value === 'true',
+        defaultBulkCount: parseInt($('#setBulkCount').value)
+      };
+      
+      store.set('cs_settings', app.settings);
+      toast('Settings saved successfully! ⚙️', 'success');
+    });
+
+    $('#resetSettings')?.addEventListener('click', () => {
+      if (confirm('Reset all settings to default?')) {
+        app.settings = {
+          defaultStyle: 'photorealistic',
+          defaultQuality: '1536',
+          autoEnhancement: true,
+          defaultBulkCount: 4
+        };
+        store.set('cs_settings', app.settings);
+        loadSettings();
+        toast('Settings reset to default', 'info');
+      }
+    });
+
+    // Modal functions
+    window.copyShareUrl = () => {
+      const url = $('#shareUrl').value;
+      navigator.clipboard.writeText(url).then(() => {
+        toast('Link copied to clipboard! 📋', 'success');
+        closeShareModal();
+      }).catch(() => {
+        // Fallback for older browsers
+        $('#shareUrl').select();
+        document.execCommand('copy');
+        toast('Link copied! 📋', 'success');
+        closeShareModal();
+      });
+    };
+
+    window.closeShareModal = () => {
+      $('#shareModal').classList.remove('show');
+    };
+
+    // Style demo functionality
+    document.body.addEventListener('click', e => {
+      const demoBtn = e.target.closest('[data-demo-style]');
+      if (demoBtn) {
+        const style = demoBtn.dataset.demoStyle;
+        const samplePrompts = {
+          photorealistic: 'Professional portrait of a woman with natural lighting',
+          ghibli: 'Peaceful village in rolling green hills with morning mist',
+          cyberpunkNeon: 'Futuristic street with neon signs reflecting on wet pavement',
+          anime: 'Energetic magical girl with flowing hair and sparkles',
+          pixelArt: 'Retro spaceship flying through asteroid field',
+          baroqueOil: 'Classical portrait of a nobleman with dramatic lighting'
+        };
+        
+        app.currentStyle = style;
+        $('#genPrompt').value = samplePrompts[style] || 'Beautiful landscape scene';
+        
+        // Update style selection
+        $$('.style-card').forEach(c => c.classList.remove('active'));
+        $(`.style-card[data-style="${style}"]`)?.classList.add('active');
+        
+        showRoute('gen');
+      }
+    });
+
+    // Gallery event listeners
+    $('#galSearch')?.addEventListener('input', renderGallery);
+    $('#galFilter')?.addEventListener('change', renderGallery);
+    $('#galStyleFilter')?.addEventListener('change', renderGallery);
+    $('#galRefresh')?.addEventListener('click', renderGallery);
+    $('#galClear')?.addEventListener('click', () => {
+      if (confirm('Clear entire gallery? This cannot be undone.')) {
+        app.gallery = [];
+        store.set('cs_gallery', app.gallery);
+        renderGallery();
+        updateHomeStats();
+        updateHomeRecent();
+        toast('Gallery cleared', 'info');
+      }
+    });
+
+    // Initialize router
+    const initRouter = () => {
+      const hash = window.location.hash.slice(1);
+      const route = routes.includes(hash) ? hash : 'home';
+      showRoute(route);
+    };
+
+    window.addEventListener('popstate', initRouter);
+    window.addEventListener('hashchange', initRouter);
+
+    // Close modal when clicking outside
+    document.addEventListener('click', e => {
+      if (e.target.classList.contains('modal-overlay')) {
+        e.target.classList.remove('show');
+      }
+    });
+
+    // Initialize everything when DOM is ready
+    const init = () => {
+      initRouter();
+      initGenerationPage();
+      initBulkPage();
+      updateHomeStats();
+      updateHomeRecent();
+      loadSettings();
+
+      // Set bulk count from settings
+      app.bulkCount = app.settings.defaultBulkCount || 4;
+      $('#bulkCount').textContent = app.bulkCount;
+
+      // Set initial style
+      app.currentStyle = app.settings.defaultStyle || 'photorealistic';
+      
+      console.log('🎨 ColorStage AI initialized successfully!');
+    };
+
+    // Start the application
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    // Global functions for inline event handlers
+    window.downloadImage = downloadImage;
+    window.shareImage = shareImage;
+    window.toggleFavorite = toggleFavorite;
+    window.deleteFromGallery = deleteFromGallery;
+    window.saveToGallery = saveToGallery;
+  </script>
+</body>
+    </html>
